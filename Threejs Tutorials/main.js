@@ -33,12 +33,21 @@ camera.position.set(75, 20, 0);
 //şimdi sahne kuralım...
 const scene = new THREE.Scene(); //burada sahneyi kurduk ancak sahneye henüz bir şey eklemedik. Ya da sahneyi renderlamıyoruz. 
 
-// şimdi directional ışık kuracağız...
+//şimdi directional ışık kuracağız...
 const light = new THREE.DirectionalLight(0xffffff, 0.5);
 light.position.set(20, 100, 10);
 light.target.position.set(0, 0, 0);
 light.castShadow = true;
 scene.add(light);
+
+//let AmbientlightColor = 0xffffff;
+//let AmbientLightIntensity = 1;
+
+//const light = new THREE.AmbientLight(AmbientlightColor, AmbientLightIntensity); //soft beyaz ışık
+//scene.add(light);
+
+//const hemisphereLight = new THREE.HemisphereLight(0xffff80, 0x4040ff, 1);
+//scene.add(hemisphereLight);
 
 //şimdi orbit kontrol nesnesini ekleyelim ki sahnede bulunan objeleri inceleyebilelim. 
 const controls = new OrbitControls(camera, renderer.domElement);
@@ -62,13 +71,24 @@ document.body.appendChild(stats.dom);
 
 //aynı şekilde bir box objesi ekliyoruz. 
 const box = new THREE.Mesh(
-    new THREE.BoxGeometry(2, 2, 2),
+    new THREE.BoxGeometry(5, 5, 5),
     new THREE.MeshStandardMaterial({ color: 0xffffff })
 );
-box.position.set(0, 1, 0);
+box.position.set(0, 10, 0);
 box.castShadow = true;
 box.receiveShadow = true;
 scene.add(box);
+
+//aynı şekilde sphere objesi ekleyelim. 
+const sphere = new THREE.Mesh(
+    new THREE.SphereGeometry(5, 30, 30),
+    new THREE.MeshStandardMaterial({ color: 0xffffff })
+);
+sphere.position.set(15, 15, 0);
+sphere.castShadow = true;
+sphere.receiveShadow = true;
+scene.add(sphere);
+
 
 //orbit kontrol ederken durumu anime etmesi için animate function'u oluşturuyor. 
 const animate = function () {
